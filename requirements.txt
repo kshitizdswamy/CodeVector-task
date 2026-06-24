@@ -1,4 +1,3 @@
-Install these libraries:
 
 fastapi
 uvicorn
