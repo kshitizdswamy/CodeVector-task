@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.templating import Jinja2Templates
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 import os
@@ -11,14 +12,18 @@ engine = create_engine(DATABASE_URL)
 
 app = FastAPI()
 
+templates = Jinja2Templates(
+    directory="templates"
+)
+
 
 @app.get("/")
-def home():
-    return {
-        "message": "Product API is running",
-        "docs": "/docs",
-        "products": "/products"
-    }
+def home(request: Request):
+
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html"
+    )
 
 
 @app.get("/products")
