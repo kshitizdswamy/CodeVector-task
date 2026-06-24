@@ -12,6 +12,15 @@ engine = create_engine(DATABASE_URL)
 app = FastAPI()
 
 
+@app.get("/")
+def home():
+    return {
+        "message": "Product API is running",
+        "docs": "/docs",
+        "products": "/products"
+    }
+
+
 @app.get("/products")
 def get_products(
     category: str = None,
